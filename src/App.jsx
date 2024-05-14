@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import TodoFalse from './components/TodoFalse'
+import TodoTrue from './components/TodoTrue'
 
 const App = () => {
   const formStyle = {
@@ -23,8 +25,12 @@ const App = () => {
     flexDirection: "column",
   };
 
-  const todoCardStyle = {
-    border: "3px solid green",
+  const sectionStyle = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "10px",
   };
 
   const [todos, setTodo] = useState([]);
@@ -58,20 +64,18 @@ const App = () => {
     setTodo(cleanedTodos);
   }
 
-  const handleClickDone = (id) => {
+  const handleClickIsDone = (id) => {
     const chagneTodo = todos.filter((todo) => {
       return todo.id === id;
     })
-    chagneTodo[0].isDone = true;
-    setTodo([...todos, chagneTodo]);
-  };
 
-  const handleClickCancel = (id) => {
-    const chagneTodo = todos.filter((todo) => {
-      return todo.id === id;
-    })
-    chagneTodo[0].isDone = false;
-    setTodo([...todos, chagneTodo]);
+    if (chagneTodo[0].isDone) {
+      chagneTodo[0].isDone = false;
+      return setTodo([...todos, chagneTodo]);
+    } else {
+      chagneTodo[0].isDone = true;
+      return setTodo([...todos, chagneTodo]);
+    }
   };
 
   return (
@@ -85,36 +89,38 @@ const App = () => {
         </form>
       </header>
       <main style={mainStyle}>
-        <section id='isWorking'>
-          <h1>Working</h1>
+        <h1>Working</h1>
+        <section id='isWorking'
+          style={sectionStyle}>
           {
             todos.filter((todo) => {
               return (todo.isDone) === false;
             }).map((todo) => {
               return (
-                <div key={todo.id} style={todoCardStyle}>
-                  <h1>{todo.title}</h1>
-                  <p>{todo.body}</p>
-                  <button onClick={()=>handleDeleteTodo(todo.id)}>삭제하기</button>
-                  <button onClick={()=>handleClickDone(todo.id)}>완료</button>
-                </div>
+                <TodoFalse
+                  key={todo.id}
+                  todo={todo}
+                  handleDeleteTodo={handleDeleteTodo}
+                  handleClickIsDone={handleClickIsDone}
+                />
               );
             })
           }
         </section>
-        <section id='isDone'>
-          <h1>Done</h1>
+        <h1>Done</h1>
+        <section id='isDone'
+        style={sectionStyle}>
           {
             todos.filter((todo) => {
               return todo.isDone === true;
             }).map((todo) => {
               return (
-                <div key={todo.id} style={todoCardStyle}>
-                  <h1>{todo.title}</h1>
-                  <p>{todo.body}</p>
-                  <button onClick={()=>handleDeleteTodo(todo.id)}>삭제하기</button>
-                  <button onClick={()=>handleClickCancel(todo.id)}>취소</button>
-                </div>
+                <TodoTrue
+                  key={todo.id}
+                  todo={todo}
+                  handleDeleteTodo={handleDeleteTodo}
+                  handleClickIsDone={handleClickIsDone}
+                />
               );
             })
           }
