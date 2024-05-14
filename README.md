@@ -9,3 +9,4 @@ Currently, two official plugins are available:
 # todo_list_homework
  - 정현욱 리액트 개인과제
  - 투두리스트 만들기
+ - 분리한 컴포넌트 : 버튼, 진행 중인 투두, 완료한 투두

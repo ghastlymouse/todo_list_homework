@@ -8,7 +8,7 @@ const TodoFalse = ({ todo, handleDeleteTodo, handleClickIsDone }) => {
     border: "3px solid green",
     borderRadius: "8px",
     width: "300px",
-    height: "300px",
+    height: "200px",
     position: "relative",
   };
   const buttonStyle = {

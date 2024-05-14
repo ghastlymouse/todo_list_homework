@@ -29,17 +29,16 @@ const App = () => {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
-    gap: "10px",
+    gap: "20px",
   };
 
   const [todos, setTodo] = useState([]);
 
-  const [title, setTtitle] = useState("");
+  const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
   const handleInputTitle = (event) => {
-    setTtitle(event.target.value);
+    setTitle(event.target.value);
   };
 
   const handleInputBody = (event) => {
@@ -55,6 +54,9 @@ const App = () => {
       isDone: false,
     };
     setTodo([...todos, newTodo]);
+    setTitle("");
+    setBody("");
+
   };
 
   const handleDeleteTodo = (id) => {
