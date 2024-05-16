@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import TodoFalse from './components/TodoFalse'
-import TodoTrue from './components/TodoTrue'
+import TodoFalse from './component/TodoFalse'
+import TodoTrue from './component/TodoTrue'
 
 const App = () => {
   const formStyle = {
@@ -67,17 +67,20 @@ const App = () => {
   }
 
   const handleClickIsDone = (id) => {
-    const chagneTodo = todos.filter((todo) => {
-      return todo.id === id;
-    })
-
-    if (chagneTodo[0].isDone) {
-      chagneTodo[0].isDone = false;
-      return setTodo([...todos, chagneTodo]);
-    } else {
-      chagneTodo[0].isDone = true;
-      return setTodo([...todos, chagneTodo]);
+    const changeTodo = todos.map((todo) => {
+      if (todo.id === id) {
+        if (todo.isDone) {
+          todo.isDone = false;
+        } else {
+          todo.isDone = true;
+        }
+      }
+      return todo;
     }
+
+    );
+    setTodo(changeTodo);
+
   };
 
   return (
@@ -111,7 +114,7 @@ const App = () => {
         </section>
         <h1>Done</h1>
         <section id='isDone'
-        style={sectionStyle}>
+          style={sectionStyle}>
           {
             todos.filter((todo) => {
               return todo.isDone === true;
